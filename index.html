@@ -257,6 +257,25 @@ footer nav a:hover{color:var(--accent)}
 .top .ic{transform:rotate(-90deg)}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:14px;font:600 13px/1.3 var(--mono);opacity:0;pointer-events:none;transition:.35s;z-index:120;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+.mc .pal-box{width:min(440px,100%)}
+.mc-h{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:18px 20px 8px}
+.mc-h b{display:block;font-size:1.05rem}
+.mc-h span{display:block;color:var(--muted);font-size:.88rem;margin-top:2px}
+.mc-x{width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--fg);font-size:20px;line-height:1;cursor:pointer;flex:none}
+.mc-x:hover{background:var(--accent-soft)}
+.mc ul{padding:8px 10px 12px}
+.mc li{padding:0;display:block}
+.mc li>a,.mc li>button{display:flex;align-items:center;gap:14px;width:100%;padding:11px 12px;border-radius:12px;color:var(--fg);text-align:left;background:none;border:0;font:inherit;cursor:pointer;text-decoration:none;transition:background-color .15s}
+.mc li>a:hover,.mc li>button:hover,.mc li>a:focus-visible,.mc li>button:focus-visible{background:var(--accent-soft);outline:none}
+.mc li span b{display:block;font-size:.96rem}
+.mc li span small{display:block;font:500 12px var(--mono);color:var(--muted);text-transform:none;letter-spacing:0;margin-top:2px}
+.mc-i{flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;font:700 14px var(--mono);font-style:normal;color:#fff}
+.mc-g{background:#ea4335}.mc-o{background:#0a6ed1}.mc-m{background:#d35230;font-size:12px}.mc-y{background:#6001d2}.mc-d{background:#4d5b7c}.mc-c{background:var(--accent);color:var(--card);font-size:18px}
+.sent{display:flex;gap:16px;align-items:flex-start;padding:20px 22px;border-radius:14px;background:rgba(31,179,122,.1);border:1px solid rgba(31,179,122,.22);border-left:4px solid #1fb37a;color:var(--fg)}
+.sent svg{color:#1fb37a;flex:none;margin-top:3px}
+.sent b{display:block;font-size:1.05rem}
+.sent p{margin:6px 0 0;color:var(--muted)}
+
 canvas.fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:110}
 .pal{position:fixed;inset:0;z-index:130;background:rgba(13,14,18,.5);display:grid;place-items:start center;padding:12vh 16px 16px;backdrop-filter:blur(4px)}
 .pal-box{width:min(560px,100%);background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden;animation:rise .25s both}
@@ -349,7 +368,7 @@ canvas.fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
     <div class="avail"><span class="label">Availability</span><div class="status"><i></i>Open to new roles</div><small>Chennai, India</small></div>
     <div class="acts">
       <a class="btn ghost mag" href="Pravin_V_Resume.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#i-download"/></svg>Download CV</a>
-      <button type="button" class="mailln" data-copy="pravinvelusamy19@gmail.com" title="Copy email address"><svg class="ic"><use href="#i-mail"/></svg>pravinvelusamy19@gmail.com</button>
+      <button type="button" class="mailln" data-mail title="Send me an email"><svg class="ic"><use href="#i-mail"/></svg>pravinvelusamy19@gmail.com</button>
       <div class="socials">
         <a href="https://www.linkedin.com/in/pravin-velusamy" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="ic"><use href="#i-linkedin"/></svg></a>
         <a href="https://github.com/Pravin-19" target="_blank" rel="noopener" aria-label="GitHub"><svg class="ic"><use href="#i-github"/></svg></a>
@@ -654,12 +673,13 @@ contact:()=>`<div class="page">${head('~/contact',"Let's talk")}
 <a class="big-mail" href="mailto:${EMAIL}">${EMAIL}</a>
 <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn ghost" data-copy="${EMAIL}">${I('copy')}COPY ADDRESS</button></div></section>
 <div class="g g2" style="align-items:start">
-<form class="card rv" id="cform" novalidate><h3 style="font-size:1.2rem">Send a note</h3>
+<form class="card rv" id="cform" novalidate><h3 style="font-size:1.2rem">Send a message</h3>
 <div class="f"><label for="cn">Your name</label><input id="cn" autocomplete="name" placeholder="Jane Doe"></div>
 <div class="f"><label for="ce">Your email</label><input id="ce" type="email" autocomplete="email" placeholder="jane@company.com"></div>
 <div class="f"><label for="cm">Message</label><textarea id="cm" placeholder="Tell me about the role or project"></textarea></div>
-<button class="btn" type="submit">${I('arrow','go')}COMPOSE EMAIL</button>
-<p class="muted" style="font-size:.85rem">This opens your mail app with the message filled in. If nothing opens, copy the address above.</p></form>
+<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+<button class="btn" type="submit">${I('arrow','go')}SEND MESSAGE</button>
+<p class="muted" style="font-size:.85rem">Your message goes straight to my inbox. Prefer your own mail app? Use the email address above.</p></form>
 <aside class="card info rv" style="--d:.1s"><div>${I('pin')}<p><b>Location</b><span>Chennai, India. Open to relocation.</span></p></div><div>${I('clock')}<p><b>Notice period</b><span>45 days, negotiable.</span></p></div><div>${I('linkedin')}<p><b>LinkedIn</b><a class="muted" href="https://www.linkedin.com/in/pravin-velusamy" target="_blank" rel="noopener" style="text-decoration:underline">linkedin.com/in/pravin-velusamy</a></p></div><div>${I('github')}<p><b>GitHub</b><a class="muted" href="https://github.com/Pravin-19" target="_blank" rel="noopener" style="text-decoration:underline">github.com/Pravin-19</a></p></div></aside></div>
 ${foot()}</div>`
 };
@@ -724,13 +744,51 @@ document.addEventListener('click',e=>{
     const done=()=>{toast('Email address copied');burst(r.left+r.width/2,r.top+r.height/2)};
     (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(done,()=>{const s=getSelection(),rg=document.createRange(),b=$('.big-mail')||c;if(b){rg.selectNodeContents(b);s.removeAllRanges();s.addRange(rg)}toast('Press Ctrl+C to copy the selected address')})}
 });
-document.addEventListener('submit',e=>{
+/* ---------- mail chooser (Gmail / Outlook / Yahoo / default app) ---------- */
+const FORM_ENDPOINT='https://script.google.com/macros/s/AKfycbxXSd0Pfpxfz2WZjZ6dkx6JQ0Eh3FyDJQJllveiI_kNQcrkrL7JTilR_JXeYJ5fIUvSVg/exec'; /* paste your Google Apps Script Web App URL here (see FORM_SETUP.md) */
+function mailLinks(o){
+  const s=encodeURIComponent(o.subject||'Hello from your portfolio'),b=encodeURIComponent(o.body||''),t=encodeURIComponent(EMAIL);
+  return [
+    {k:'g',l:'G',n:'Gmail',d:'Opens a draft in Gmail',u:`https://mail.google.com/mail/?view=cm&fs=1&to=${t}&su=${s}&body=${b}`},
+    {k:'o',l:'O',n:'Outlook.com',d:'Opens a draft in Outlook on the web',u:`https://outlook.live.com/mail/0/deeplink/compose?to=${t}&subject=${s}&body=${b}`},
+    {k:'m',l:'365',n:'Microsoft 365 Outlook',d:'For work or school accounts',u:`https://outlook.office.com/mail/deeplink/compose?to=${t}&subject=${s}&body=${b}`},
+    {k:'y',l:'Y!',n:'Yahoo Mail',d:'Opens a draft in Yahoo Mail',u:`https://compose.mail.yahoo.com/?to=${t}&subject=${s}&body=${b}`},
+    {k:'d',l:'@',n:'Default mail app',d:'Apple Mail, Outlook desktop, Thunderbird',u:`mailto:${EMAIL}?subject=${s}&body=${b}`,same:true}
+  ];
+}
+function closeMail(){const m=$('#mc');if(m)m.remove()}
+function openMail(o){
+  o=o||{};closeMail();
+  const w=document.createElement('div');w.className='pal mc';w.id='mc';w.setAttribute('role','dialog');w.setAttribute('aria-modal','true');w.setAttribute('aria-label','Choose a mail app');
+  w.innerHTML=`<div class="pal-box"><div class="mc-h"><div><b>Send an email</b><span>Choose where you want to write it</span></div><button type="button" class="mc-x" aria-label="Close">&times;</button></div><ul>${mailLinks(o).map(x=>`<li><a href="${x.u}"${x.same?'':' target="_blank" rel="noopener"'} data-mc="${x.k}"><i class="mc-i mc-${x.k}">${x.l}</i><span><b>${x.n}</b><small>${x.d}</small></span></a></li>`).join('')}<li><button type="button" data-mc="copy" data-copy="${EMAIL}"><i class="mc-i mc-c">&#10697;</i><span><b>Copy address</b><small>${EMAIL}</small></span></button></li></ul></div>`;
+  document.body.appendChild(w);
+  const f=w.querySelector('a');if(f)f.focus();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#mc')){e.stopPropagation();closeMail()}},true);
+document.addEventListener('click',e=>{
+  const mc=e.target.closest('#mc');
+  if(mc){if(e.target===mc||e.target.closest('.mc-x'))closeMail();else if(e.target.closest('[data-mc]'))setTimeout(closeMail,150);return}
+  const a=e.target.closest('a[href^="mailto:"]');
+  if(a){e.preventDefault();openMail();return}
+  if(e.target.closest('[data-mail]'))openMail();
+});
+
+/* ---------- contact form: sends to Google Sheet via Apps Script ---------- */
+document.addEventListener('submit',async e=>{
   if(e.target.id!=='cform')return;e.preventDefault();
-  const n=$('#cn').value.trim(),m=$('#cm').value.trim(),em=$('#ce').value.trim();
+  const f=e.target,n=$('#cn').value.trim(),em=$('#ce').value.trim(),m=$('#cm').value.trim();
+  if(f.elements.website&&f.elements.website.value)return;
+  if(!n){toast('Please add your name');$('#cn').focus();return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){toast('Please add a valid email so I can reply');$('#ce').focus();return}
   if(!m){toast('Add a short message first');$('#cm').focus();return}
-  const body=encodeURIComponent(m+'\n\n'+(n?'— '+n:'')+(em?'\n'+em:''));
-  const a=document.createElement('a');a.href=`mailto:${EMAIL}?subject=${encodeURIComponent('Hello from your portfolio')}&body=${body}`;a.click();
-  toast('Opening your mail app. If it does not open, copy the address.');
+  const fallback=()=>openMail({subject:'Message from '+n,body:m+'\n\n— '+n+'\n'+em});
+  if(!FORM_ENDPOINT){fallback();return}
+  const btn=f.querySelector('button[type=submit]');btn.disabled=true;const lbl=btn.innerHTML;btn.innerHTML='SENDING…';
+  try{
+    await fetch(FORM_ENDPOINT,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({name:n,email:em,message:m,page:location.href})});
+    f.innerHTML='<div class="sent" role="status"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12 10 18 20 6"/></svg><div><b>Message sent!</b><p>Thank you! I\u2019ll get back to you soon.</p></div></div>';
+    const r=f.getBoundingClientRect();burst(r.left+r.width/2,r.top+70);
+  }catch(err){btn.disabled=false;btn.innerHTML=lbl;toast('Could not send right now. Choose a mail app instead.');fallback()}
 });
 
 /* toast */
