@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-/* Layout: sticky profile + nav column on the left, content column on the right, pastel triangles behind, diagonal wipe between pages */
+/* Layout: sticky profile + nav column on the left, content column on the right, pastel triangles behind, DevOps infinity-loop transition between pages */
 :root{
   --bg:#f3f4fa; --card:#ffffff; --fg:#232a3d; --muted:#5d667c; --line:#e3e6f1;
   --accent:#3f5fd6; --accent-soft:#e6ecff; --accent-ink:#2c47b0;
@@ -114,7 +114,15 @@ main{min-width:0}
 .lnk{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 .lnk:hover{text-decoration-thickness:2px}
 .prose{display:flex;flex-direction:column;gap:14px}
-.prose p{max-width:76ch}
+.prose p{max-width:76ch;font-size:1.05rem;line-height:1.75}
+.prose .lead{font-size:1.05rem;max-width:76ch}
+.prose .cta-line{margin-top:8px;padding:14px 18px;border-left:4px solid var(--peach);background:var(--accent-soft);border-radius:0 14px 14px 0;font-weight:500;color:var(--fg);animation:ctaIn .7s .35s both}
+.cta-line a{color:var(--accent);font-weight:600;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1.5px}
+.cta-line a:hover{text-decoration-thickness:3px}
+.cta-line a span{display:inline-block;animation:ctaNudge 1.6s ease-in-out infinite}
+@keyframes ctaIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes ctaNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.prose .cta-line,.cta-line a span{animation:none}}
 .g{display:grid;gap:16px}
 .g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 .g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
@@ -155,7 +163,7 @@ main{min-width:0}
 .tli.in::before{border-color:var(--accent);background:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
 .tli h3{font-size:1.2rem}
 .when{font:600 12px/1.3 var(--mono);color:var(--accent);letter-spacing:.04em}
-.tli ul,.ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:.96rem}
+.tli ul,.ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:.95rem}
 .skillgrp{padding:20px;display:flex;flex-direction:column;gap:12px}
 .skillgrp .chip{background:var(--bg);color:var(--fg);border:1px solid var(--line);font-weight:500}
 .cred{display:flex;align-items:center;gap:14px;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line)}
@@ -181,7 +189,7 @@ main{min-width:0}
 .pcard:hover .thumb .ic{transform:scale(1.14) rotate(-6deg)}
 .pbody{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
 .pbody h3{font-size:1.12rem}
-.pbody p{color:var(--muted);font-size:.93rem;flex:1}
+.pbody p{color:var(--muted);font-size:.95rem;flex:1}
 .pbody .more{font:600 12px/1 var(--mono);color:var(--accent);display:inline-flex;align-items:center;gap:6px}
 .more::after{content:"";position:absolute;inset:0}
 .pfoot{display:flex;align-items:center;gap:30px;flex-wrap:wrap}
@@ -233,7 +241,7 @@ form.card{padding:24px;display:flex;flex-direction:column;gap:16px}
 .info div{display:flex;gap:12px;align-items:flex-start}
 .info .ic{color:var(--accent);margin-top:2px}
 .info b{display:block;font:600 .98rem/1.3 var(--display)}
-.info span{color:var(--muted);font-size:.92rem}
+.info span{color:var(--muted);font-size:.95rem}
 
 footer{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem;margin-top:12px}
 footer nav{display:flex;gap:18px;flex-wrap:wrap;font:600 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em}
@@ -245,12 +253,6 @@ footer nav a:hover{color:var(--accent)}
 .rv{transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
 .page-in>*{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
 @keyframes rise{from{opacity:0;transform:translateY(14px)}}
-.wipe i{position:fixed;inset:0;z-index:100;pointer-events:none;transition:clip-path .5s cubic-bezier(.7,0,.25,1);clip-path:polygon(-80% 0,-40% 0,-70% 100%,-110% 100%)}
-.wipe .w1{background:var(--accent)}
-.wipe .w2{background:var(--peach);z-index:101;transition-delay:.09s}
-.wipe i[data-s="cover"]{clip-path:polygon(-10% 0,140% 0,110% 100%,-40% 100%)}
-.wipe i[data-s="exit"]{clip-path:polygon(140% 0,180% 0,150% 100%,110% 100%)}
-.wipe i[data-s="idle"]{transition:none;clip-path:polygon(-80% 0,-40% 0,-70% 100%,-110% 100%)}
 .top{position:fixed;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);display:grid;place-items:center;color:var(--accent);opacity:0;transform:translateY(16px) scale(.8);pointer-events:none;transition:.3s}
 .top.show{opacity:1;transform:none;pointer-events:auto}
 .top:hover{transform:translateY(-4px)}
@@ -288,6 +290,22 @@ canvas.fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
 .pal li.on{background:var(--accent-soft);color:var(--accent-ink)}
 .kbd{font:600 11px/1 var(--mono);padding:3px 6px;border:1px solid var(--line);border-radius:6px;color:var(--muted)}
 
+/* DevOps infinity-loop page transition (uses the site's own background, triangles and colours, so it matches light and dark themes) */
+.loopfx{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;opacity:0;visibility:hidden;pointer-events:none;background:var(--bg);transition:opacity .28s ease,visibility 0s .28s}
+.loopfx.on{opacity:1;visibility:visible;pointer-events:all;transition:opacity .28s ease}
+.loopfx>svg,.loopfx>div:not(.bg){position:relative;z-index:1}
+.loopfx svg{width:min(80vw,540px);height:auto;overflow:visible}
+.lfbg i{animation:lfFloat 3.2s ease-in-out infinite alternate}
+.lfbg .t2{animation-delay:-.8s}.lfbg .t3{animation-delay:-1.6s}.lfbg .t4{animation-delay:-2.2s}.lfbg .t5{animation-delay:-.4s}
+@keyframes lfFloat{from{translate:0 0}to{translate:0 14px}}
+.loopfx .gh{fill:none;stroke:var(--accent-soft);stroke-width:16;stroke-linecap:round}
+.loopfx .gh2{fill:none;stroke:var(--accent);stroke-width:1.2;stroke-dasharray:2 7;stroke-linecap:round;opacity:.35}
+.loopfx .lp{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.lp-dest{font:600 12px/1 var(--mono);letter-spacing:.08em;color:var(--accent)}
+.lp-cap{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;max-width:min(88vw,560px);font:600 11px/1 var(--mono);letter-spacing:.14em;color:var(--muted);opacity:.9}
+.lp-cap span{transition:color .18s,transform .18s}
+.lp-cap span.on{color:var(--accent);transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){.lfbg i{animation:none}}
 /* tablet (700-960px): keep the two-column layout, just tighter */
 @media (min-width:700px) and (max-width:960px){
   .shell{grid-template-columns:200px minmax(0,1fr);gap:20px;padding-block:20px 40px}
@@ -396,7 +414,28 @@ canvas.fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-in
 </div>
 
 <button class="top" id="top" aria-label="Back to top"><svg class="ic"><use href="#i-up"/></svg></button>
-<div class="wipe" aria-hidden="true"><i class="w2" data-s="idle"></i><i class="w1" data-s="idle"></i></div>
+<div class="loopfx" id="loopfx" aria-hidden="true">
+  <div class="bg lfbg"><i class="t1"></i><i class="t2"></i><i class="t3"></i><i class="t4"></i><i class="t5"></i></div>
+  <svg viewBox="0 0 400 200">
+    <defs>
+      <filter id="lgA" filterUnits="userSpaceOnUse" x="-60" y="-60" width="520" height="320"><feGaussianBlur stdDeviation="7"/></filter>
+      <filter id="lgB" filterUnits="userSpaceOnUse" x="-60" y="-60" width="520" height="320"><feGaussianBlur stdDeviation="2.6"/></filter>
+    </defs>
+    <path class="gh" id="lpath" d="M200 100C170 32 52 32 52 100C52 168 170 168 200 100C230 32 348 32 348 100C348 168 230 168 200 100Z"/>
+    <path class="gh2" d="M200 100C170 32 52 32 52 100C52 168 170 168 200 100C230 32 348 32 348 100C348 168 230 168 200 100Z"/>
+    <g id="lpl">
+      <path class="lp" d="M200 100C170 32 52 32 52 100C52 168 170 168 200 100C230 32 348 32 348 100C348 168 230 168 200 100Z" data-l="48" style="stroke:var(--accent);stroke-width:24;opacity:.38" filter="url(#lgA)"/>
+      <path class="lp" d="M200 100C170 32 52 32 52 100C52 168 170 168 200 100C230 32 348 32 348 100C348 168 230 168 200 100Z" data-l="30" style="stroke:var(--peach);stroke-width:13;opacity:.85" filter="url(#lgB)"/>
+      <path class="lp" d="M200 100C170 32 52 32 52 100C52 168 170 168 200 100C230 32 348 32 348 100C348 168 230 168 200 100Z" data-l="66" style="stroke:var(--blue);stroke-width:2.2;opacity:.8"/>
+      <path class="lp" d="M200 100C170 32 52 32 52 100C52 168 170 168 200 100C230 32 348 32 348 100C348 168 230 168 200 100Z" data-l="42" style="stroke:var(--blue);stroke-width:5"/>
+      <path class="lp" d="M200 100C170 32 52 32 52 100C52 168 170 168 200 100C230 32 348 32 348 100C348 168 230 168 200 100Z" data-l="24" style="stroke:var(--accent);stroke-width:8.5"/>
+      <path class="lp" d="M200 100C170 32 52 32 52 100C52 168 170 168 200 100C230 32 348 32 348 100C348 168 230 168 200 100Z" data-l="8" style="stroke:var(--peach);stroke-width:12"/>
+    </g>
+    <g id="lsp"></g>
+  </svg>
+  <div class="lp-dest" id="lpd">$ cd ~/</div>
+  <div class="lp-cap" id="lpc"><span>PLAN</span><span>CODE</span><span>BUILD</span><span>TEST</span><span>RELEASE</span><span>DEPLOY</span><span>OPERATE</span><span>MONITOR</span></div>
+</div>
 <div class="toast" id="toast" role="status"></div>
 <canvas class="fx" id="fx"></canvas>
 
@@ -412,47 +451,47 @@ const TONES={AI:['#8aa8f4','#c3d2fb'],IaC:['#f9b48c','#fcd6bf'],'CI/CD':['#8fd3c
 const WORKS=[
 {slug:'ai-devops-automation',link:'https://github.com/Pravin-19',title:'AI-Assisted DevOps Automation',cat:'AI',icon:'spark',tags:['Kiro','MCP','Jira','Confluence','Jenkins','GitHub','Outlook','Terraform'],
  short:'One guarded workflow that connects Jira, Confluence, Jenkins, GitHub and Outlook through MCP servers.',
- overview:'Daily engineering work touches many tools. I designed an AI-assisted workflow in Kiro that connects them through MCP servers, so an assistant can carry a task from ticket to pull request while following written rules.',
+ overview:'Daily engineering work spans many tools. This AI-assisted workflow in Kiro connects them through MCP servers, allowing an assistant to take a task from ticket to pull request while following documented rules.',
  did:['Covered the full path: Jira ticket analysis, knowledge retrieval, code analysis, implementation, Terraform validation, pipeline-log analysis and pull-request creation.','Wrote Kiro steering files for email-send safety, GitHub access limited to approved organizations, a no-hallucination rule, and Jira and Confluence rule files.','Added hooks that automate ticket lookup, documentation search and build analysis.','Set guardrails such as read-only repository access and confirmation prompts before anything is sent.'],
  outcome:'Routine tasks run through one workflow with clear limits on what the assistant may read, write and send.'},
 {slug:'agentic-log-analysis',title:'Agentic Log Analysis with Ollama',cat:'AI',icon:'pulse',tags:['Python','Ollama','Agentic AI'],
  short:'Python agents that read logs, diagnose problems and point out cloud cost savings.',
- overview:'Operations teams spend a lot of time reading logs. I built Python tools, including agentic AI solutions on Ollama, that analyse logs, suggest diagnoses and look for ways to reduce cloud cost.',
+ overview:'Operations teams spend significant time reading logs. These Python tools, including agentic AI solutions on Ollama, analyse logs, suggest diagnoses and identify opportunities to reduce cloud cost.',
  did:['Built Python tools that apply AI-driven analysis to logs and diagnostics.','Used Ollama so the analysis can run with a locally hosted model.','Applied the same approach to cloud cost optimization.'],
  outcome:'Better reliability and less manual effort in day-to-day operations.'},
 {slug:'terraform-modules',title:'Terraform Reusable Modules',cat:'IaC',icon:'server',tags:['Terraform','AWS','Workspaces','Modules'],link:'https://github.com/Pravin-19/terraform-aws-vpc/tree/module/vpc',
  short:'Modules for AWS services that deploy to production, staging and development from one codebase.',
- overview:'Each project used to describe its infrastructure slightly differently. I wrote Terraform modules that provision several AWS services and can be reused across projects and environments.',
+ overview:'Projects previously described their infrastructure in slightly different ways. Reusable Terraform modules now provision several AWS services consistently across projects and environments.',
  did:['Created reusable Terraform code for provisioning multiple AWS services.','Built modules with variables, outputs and terraform.tfvars files.','Used workspaces to support production, staging and development environments.','Published the VPC module on GitHub.'],
  outcome:'A shared module library that standardises infrastructure across company projects.'},
 {slug:'devsecops-sonarqube',title:'DevSecOps with SonarQube',cat:'Security',icon:'shield',tags:['SonarQube','SAST','S3','CI/CD'],
  short:'Static analysis in the pipeline, with quality gates that stop weak builds before release.',
- overview:'Security checks work best when they run on every build. I integrated SonarQube into the CI/CD pipeline for automated static code analysis.',
+ overview:'Security checks are most effective when they run on every build. SonarQube was integrated into the CI/CD pipeline to provide automated static code analysis.',
  did:['Added SAST scans to the pipeline.','Gated the pipeline on quality thresholds so a failing build cannot move on.','Stored scan results in S3 and visualised them on a dashboard.'],
  outcome:'Code quality and security findings are visible on every build and enforced by the pipeline.'},
 {slug:'waf-v2-rules',title:'AWS WAF v2 Protection',cat:'Security',icon:'shield',tags:['AWS WAF v2','CloudWatch','Web ACL','Alarms'],
  short:'Web ACLs, rule groups and IP lists with CloudWatch alarms for real-time response.',
- overview:'Public endpoints need a first line of defence. I implemented AWS WAF v2 rules and resources and wired them to monitoring.',
+ overview:'Public endpoints need a first line of defence. This work implemented AWS WAF v2 rules and resources and connected them to monitoring.',
  did:['Created web access control lists and rule groups.','Maintained IP allow and deny lists.','Configured CloudWatch logs and alarm notifications to catch security events as they happen.'],
  outcome:'Security events are logged, alarmed and visible to the team in real time.'},
 {slug:'eks-gitops',title:'GitOps Deployments on Amazon EKS',cat:'Containers',icon:'cloud',tags:['EKS','Kubernetes','GitOps','Docker'],
  short:'Containerised apps delivered to EKS with Git as the single source of truth.',
- overview:'Cluster state should be something you can read in a repository. I deployed containerised applications to Amazon EKS with a GitOps workflow.',
+ overview:'Cluster state should be readable in a repository. Containerised applications were deployed to Amazon EKS through a GitOps workflow.',
  did:['Kept Kubernetes manifests in Git as the single source of truth.','Deployed containerised applications to EKS from that repository.','Troubleshot deployment and pipeline issues.'],
  outcome:'Every change to the cluster is reviewed, versioned and traceable.'},
 {slug:'cicd-pipelines',link:'https://github.com/Pravin-19',title:'CI/CD: Jenkins, GitHub Actions, CodePipeline',cat:'CI/CD',icon:'refresh',tags:['GitHub Actions','Jenkins','CodePipeline','SNS','Trunk-based'],
  short:'Pipeline migrations and fixes that cut deployment time by 30%.',
- overview:'Across two roles I built and moved pipelines between tools, and fixed the issues that slowed releases down.',
+ overview:'Across two roles, this work covered building pipelines, migrating them between tools and resolving the issues that slowed releases.',
  did:['Migrated pipelines from Jenkins to GitHub Actions, converting Jenkinsfiles to YAML workflows.','Wrote GitHub Actions workflows that deploy Lambda and Step Functions, reducing deployment time by 30%.','Solved a CodePipeline trigger issue and set up notification rules with SNS.','Implemented deployment for trunk-based development.'],
  outcome:'Faster, steadier release cycles with clear notifications.'},
 {slug:'server-and-account-migrations',link:'https://github.com/Pravin-19',title:'Server and Account Migrations',cat:'Migration',icon:'server',tags:['AWS MGN','Cutover','AWS','GitHub'],
  short:'On-premises to AWS server moves and a zero-downtime AWS and GitHub account migration.',
- overview:'Migrations are judged by how quiet they are. I supported two kinds: moving on-premises servers to AWS, and moving cloud and source-control accounts.',
+ overview:'A good migration is one that users never notice. This work covered two kinds: moving on-premises servers to AWS, and moving cloud and source-control accounts.',
  did:['Supported an end-to-end on-premises to AWS migration with AWS Transform MGN: agent installation, replication, test launch, validation, cutover and post-migration activities.','Migrated AWS and GitHub accounts with zero downtime, working closely with the development team on production-ready code.'],
  outcome:'Workloads moved without interrupting users.'},
 {slug:'ecs-ansible-rollouts',title:'ECS Rollouts with Ansible and API Gateway',cat:'Containers',icon:'code',tags:['ECS','Ansible','API Gateway','Load Balancer'],
  short:'Playbook-driven ECS deployments with API Gateway in front and a tested rollback path.',
- overview:'Manual deployments drift. I automated application deployment to AWS ECS with Ansible and put API Gateway in front of the services.',
+ overview:'Manual deployments drift over time. Application deployment to AWS ECS was automated with Ansible, with API Gateway placed in front of the services.',
  did:['Wrote Ansible playbooks for provisioning, systems configuration and rollout to ECS.','Integrated API Gateway with load balancers for ECS microservices.','Implemented a rollback deployment strategy.'],
  outcome:'More consistent deployments, less manual work, and better resilience and uptime.'}
 ];
@@ -574,10 +613,11 @@ about:()=>`<div class="page">
 ${head('~/about','About Me')}
 <section class="card panel rv"><div><span class="label">Role</span><b>AWS DevOps Engineer</b></div><div><span class="label">Location</span><b>Chennai, India</b></div><div><span class="label">Experience</span><b>3+ years</b></div></section>
 <section class="card prose pad rv" style="--d:.05s">
-<p class="lead">Hi, I'm Pravin. I build, ship and run <span class="chip" style="font-size:1rem;padding:3px 10px"><span class="tw" data-words='["cloud-native workloads","Terraform modules","CI/CD pipelines","AI-assisted workflows","Kubernetes deployments"]'>cloud-native workloads</span><span style="opacity:.6">|</span></span> on AWS.</p>
-<p>I'm a Senior Software Engineer (AWS DevOps) at HCL Technologies with more than three years of experience across AWS Lambda, API Gateway, ECS, EKS, S3, DynamoDB and Step Functions. I write Python with boto3, define infrastructure with AWS CDK and Terraform, and ship it through Jenkins and GitHub Actions.</p>
-<p>Lately I spend a lot of time on AI-assisted engineering. I use Kiro with steering files, hooks and MCP servers, work with Claude Code, and build agentic tools in Python that read logs and look for cost savings. I care about guardrails as much as speed.</p>
-<p>I hold the GCP Associate Cloud Engineer and AWS Certified Developer certifications, and I was recognised as Best Performer for end-to-end ownership of a billing application. I'm looking for remote and product-based roles where I can own delivery, quality and security.</p>
+<p class="lead">Hello, I’m Pravin, an AWS DevOps engineer who builds, ships and runs <span class="chip" style="font-family:var(--body);font-weight:600;font-size:1em;line-height:1.5;letter-spacing:0;padding:1px 12px"><span class="tw" data-words='["cloud-native workloads","Terraform modules","CI/CD pipelines","AI-assisted workflows","Kubernetes deployments"]'>cloud-native workloads</span><span style="opacity:.6">|</span></span> on AWS.</p>
+<p>I work as a Senior Software Engineer (AWS DevOps) at HCL Technologies, bringing over 3+ years of experience with AWS Cloud & DevOps. I code in Python using boto3, define infrastructure through AWS CDK and Terraform, and deploy it via Jenkins and GitHub Actions.</p>
+<p>These days, a significant amount of my time goes into AI-assisted engineering. I work with Kiro using steering files, hooks and MCP servers, use Claude Code, and develop agentic tools in Python that read logs and identify cost savings. I value guardrails just as much as speed.</p>
+<p>I am certified as a GCP Associate Cloud Engineer and AWS Certified Developer, and I received recognition as Best Performer for end-to-end ownership of a billing application.</p>
+<p class="cta-line">If my profile sounds interesting and meets your expectations, please do <a href="#contact">send me a message <span aria-hidden="true">→</span></a>.</p>
 </section>
 <div class="rv" style="--d:.1s"><a class="btn mag" href="#portfolio">SEE MY WORK ${I('arrow','go')}</a></div>
 <section class="sec"><h2>Track record</h2><div class="g g4">
@@ -592,12 +632,12 @@ ${head('~/about','About Me')}
 <article class="card area rv" style="--d:.14s"><span class="label">Security</span>${I('shield')}<h3>DevSecOps</h3><p>SonarQube quality gates, secrets management, KMS, least-privilege IAM and WAF rules with alarms.</p></article>
 <article class="card area rv" style="--d:.21s"><span class="label">AI</span>${I('spark')}<h3>AI-assisted engineering</h3><p>Kiro workflows over MCP servers, Claude Code, and agentic Python tools built on Ollama.</p></article>
 </div></section>
-<section class="sec"><h2>Tools I work with</h2><div class="rv" style="display:flex;flex-direction:column;gap:12px">${marquee(TOOLS_A)}${marquee(TOOLS_B)}</div></section>
+<section class="sec"><h2>Tools and technologies</h2><div class="rv" style="display:flex;flex-direction:column;gap:12px">${marquee(TOOLS_A)}${marquee(TOOLS_B)}</div></section>
 ${foot()}</div>`,
 
 portfolio:()=>{const cats=['All',...Object.keys(TONES)];return `<div class="page">
 ${head('~/portfolio','Portfolio')}
-<p class="card pad lead rv">Nine pieces of infrastructure, automation and security work. Open any one for the details.</p>
+<p class="card pad lead rv">Nine projects spanning infrastructure, automation and security. Open any project for details.</p>
 <div class="filters rv" id="filters" role="group" aria-label="Filter by category">${cats.map((c,i)=>`<button data-f="${c}" class="${i?'':'on'}">${c}</button>`).join('')}</div>
 <div class="pgrid" id="pgrid">${WORKS.map(workCard).join('')}</div>
 ${foot()}</div>`},
@@ -607,7 +647,7 @@ return `<div class="page"><a class="back" href="#portfolio">${I('back')}ALL PROJ
 <header class="ph"><p class="eyebrow">$ cd ~/portfolio/${w.slug}</p><h1>${w.title}<span class="dot">.</span></h1><div class="chips" style="margin-top:8px"><span class="chip">${w.cat}</span></div></header>
 ${thumb(w,'hero-thumb rv')}
 <section class="sec"><h2>Overview</h2><p class="card pad lead rv">${w.overview}</p></section>
-<section class="sec"><h2>What I did</h2><ul class="card ul rv" style="font-size:1rem;color:var(--fg);padding:24px 24px 24px 46px">${w.did.map(d=>`<li>${d}</li>`).join('')}</ul></section>
+<section class="sec"><h2>Key contributions</h2><ul class="card ul rv" style="font-size:1rem;color:var(--fg);padding:24px 24px 24px 46px">${w.did.map(d=>`<li>${d}</li>`).join('')}</ul></section>
 <section class="sec"><h2>Outcome</h2><div class="card pad rv"><p>${w.outcome}</p></div></section>
 <section class="sec"><h2>Stack</h2><div class="chips rv">${w.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div></section>
 ${w.link?`<div class="rv"><a class="btn ghost" href="${w.link}" target="_blank" rel="noopener">SOURCE CODE ${I('ext')}</a></div>`:''}
@@ -616,22 +656,22 @@ ${foot()}</div>`},
 
 resume:()=>`<div class="page">
 ${head('~/resume','Resume')}
-<section class="card pad rv"><span class="label">Professional summary</span><p style="margin-top:12px;max-width:72ch">AWS engineer with 3+ years of experience building, deploying and operating cloud-native workloads on AWS using Python and boto3, with Docker, Kubernetes, CI/CD and infrastructure as code. Hands-on with AI-assisted engineering using Kiro, Claude Code and MCP integrations, plus agentic AI tools built in Python. Takes ownership of delivery, quality and security best practices.</p></section>
+<section class="card pad rv"><span class="label">Professional summary</span><p style="margin-top:12px;max-width:72ch">AWS DevOps engineer with 3+ years of experience building, deploying and operating cloud-native workloads on AWS using Python and boto3, Docker, Kubernetes, CI/CD and infrastructure as code. Hands-on with AI-assisted engineering through Kiro, Claude Code and MCP integrations, and with agentic AI tools built in Python. Committed to ownership of delivery, quality and security best practices.</p></section>
 <section class="sec"><h2>Experience</h2><div class="tl">
 <article class="card tli rv"><span class="when">SEP 2024 – PRESENT · CHENNAI</span><h3>Senior Software Engineer, AWS DevOps<br><span class="muted" style="font-size:1rem;font-weight:500">HCL Technologies Ltd.</span></h3><ul>
 <li>Built Python tools including agentic AI solutions with Ollama for log analysis, diagnostics and cloud cost optimization.</li>
-<li>Created a Kiro workflow that links Jira, Confluence, Jenkins, GitHub and Outlook through MCP servers, with steering files and hooks for safety.</li>
+<li>Designed a Kiro workflow connecting Jira, Confluence, Jenkins, GitHub and Outlook through MCP servers, with steering files and hooks to enforce safety.</li>
 <li>Automated AWS tasks with boto3 across Lambda, S3, ECS and DynamoDB.</li>
 <li>Provisioned infrastructure with AWS CDK and Terraform for Lambda, API Gateway, ECS and S3 deployments.</li>
 <li>Deployed containerised applications to Amazon EKS with a GitOps workflow.</li>
 <li>Migrated pipelines from Jenkins to GitHub Actions, converting Jenkinsfiles to YAML workflows.</li>
 <li>Supported an on-premises to AWS server migration with AWS Transform MGN, from agent install to cutover.</li>
-<li>Automated ECS deployments with Ansible and put API Gateway with load balancers in front of microservices, with a rollback strategy.</li></ul></article>
+<li>Automated ECS deployments with Ansible and fronted microservices with API Gateway and load balancers, backed by a rollback strategy.</li></ul></article>
 <article class="card tli rv"><span class="when">AUG 2023 – AUG 2024 · CHENNAI</span><h3>Cloud Engineer<br><span class="muted" style="font-size:1rem;font-weight:500">VueData Technologies</span></h3><ul>
 <li>Wrote GitHub Actions workflows to deploy Lambda and Step Functions, cutting deployment time by 30%.</li>
 <li>Migrated AWS and GitHub accounts with zero downtime.</li>
-<li>Built production-ready Terraform and reusable modules shared across projects.</li>
-<li>Solved a CodePipeline trigger issue, set up SNS notifications and implemented trunk-based deployment.</li>
+<li>Developed production-ready Terraform code and reusable modules shared across projects.</li>
+<li>Resolved a CodePipeline trigger issue, configured SNS notifications and implemented trunk-based deployment.</li>
 <li>Implemented AWS WAF v2 web ACLs, rule groups and IP lists, with CloudWatch logs and alarms.</li></ul></article>
 </div></section>
 <section class="sec"><h2>Skills</h2><div class="g g2">${SKILLS.map(([t,a],i)=>`<div class="card skillgrp rv" style="--d:${(i%2)*.07}s"><span class="label">${t}</span><div class="chips">${a.map(s=>`<span class="chip">${s}</span>`).join('')}</div></div>`).join('')}</div></section>
@@ -641,25 +681,25 @@ ${head('~/resume','Resume')}
 <div class="cred"><div><b>Associate Cloud Engineer</b><br><span class="muted">Google Cloud</span></div><a href="https://www.credly.com/badges/97bcc041-74cd-4974-a9b7-ad9c29a3d0cf/public_url" target="_blank" rel="noopener">VERIFY ${I('ext')}</a></div>
 <div class="cred"><div><b>AWS Certified Developer</b><br><span class="muted">Amazon Web Services</span></div><a href="https://www.credly.com/badges/507c4e0d-0750-43e8-9073-d9c17abfb8df" target="_blank" rel="noopener">VERIFY ${I('ext')}</a></div>
 </div></section></div>
-<section class="sec"><h2>Recognition</h2><div class="card pad rv" style="display:flex;gap:16px;align-items:flex-start"><span class="area" style="padding:0">${I('award')}</span><div><b style="font-family:var(--display);font-size:1.1rem">Best Performer Award</b><p class="muted">Recognised for end-to-end ownership of a Verizon billing application, consistent delivery and meeting critical project deadlines.</p></div></div></section>
+<section class="sec"><h2>Recognition</h2><div class="card pad rv" style="display:flex;gap:16px;align-items:flex-start"><span class="area" style="padding:0">${I('award')}</span><div><b style="font-family:var(--display);font-size:1.1rem">Best Performer Award</b><p class="muted">Recognised for end-to-end ownership of a Verizon billing application, consistent delivery and adherence to critical project deadlines.</p></div></div></section>
 ${foot()}</div>`,
 
 journey:()=>{const J=[
-['2019','Started engineering','B.E. Civil Engineering at Anna University (BIT Campus), Tiruchirappalli.'],
-['2023','Graduated at the top','<a class="lnk" href="https://www.linkedin.com/posts/pravin-velusamy_annauniversity-firstrank-goldmedal-activity-7215751827013656577-KSMn" target="_blank" rel="noopener">Anna University Gold Medalist</a> and University First Rank Holder.'],
-['AUG 2023','First cloud role','Joined VueData Technologies as a Cloud Engineer. Wrote GitHub Actions deployments for Lambda and Step Functions, and reusable Terraform modules.'],
-['2024','Zero-downtime migration','Moved AWS and GitHub accounts with no downtime, and added WAF v2 protection with CloudWatch alarms.'],
-['SEP 2024','Joined HCL Technologies','Became a Senior Software Engineer on AWS DevOps. Worked on EKS GitOps, ECS rollouts, MGN migrations and the move from Jenkins to GitHub Actions.'],
-['WORK IN FINLAND','Discover Finland Program','I’m part of the Discover Finland Program (Work in Finland) as an International Talent, where I’m strengthening my understanding of Finnish work culture, recruitment practices, and industry expectations, particularly in IT and Digitalization.'],
-['CERTIFIED','GCP and AWS','Earned the Google Cloud Associate Cloud Engineer and AWS Certified Developer certifications.'],
+['2019','Began engineering studies','Enrolled in B.E. Civil Engineering at Anna University (BIT Campus), Tiruchirappalli.'],
+['2023','Graduated with top honours','<a class="lnk" href="https://www.linkedin.com/posts/pravin-velusamy_annauniversity-firstrank-goldmedal-activity-7215751827013656577-KSMn" target="_blank" rel="noopener">Anna University Gold Medalist</a> and University First Rank Holder.'],
+['AUG 2023','First cloud role','Joined VueData Technologies as a Cloud Engineer, delivering GitHub Actions deployments for Lambda and Step Functions and reusable Terraform modules.'],
+['2024','Zero-downtime migration','Migrated AWS and GitHub accounts with zero downtime and introduced AWS WAF v2 protection with CloudWatch alarms.'],
+['SEP 2024','Joined HCL Technologies','Progressed to Senior Software Engineer in AWS DevOps, working on EKS GitOps, ECS rollouts, MGN migrations and the transition from Jenkins to GitHub Actions.'],
+['WORK IN FINLAND','Discover Finland Program','Participating in the Discover Finland Program (Work in Finland) as an International Talent, building an understanding of Finnish work culture, recruitment practices and industry expectations, particularly in IT and digitalisation.'],
+['CERTIFIED','GCP and AWS','Earned the Google Associate Cloud Engineer and AWS Certified Developer certifications.'],
 ['RECOGNISED','Best Performer','Awarded for end-to-end ownership of a Verizon billing application.'],
-['NOW','AI-assisted engineering','Building guarded Kiro and MCP workflows, and agentic tools on Ollama. Open to remote and product-based roles.']];
+['NOW','AI-assisted engineering','Building guardrailed Kiro and MCP workflows and agentic tools on Ollama, and open to remote and product-based roles.']];
 return `<div class="page">${head('~/journey','Journey')}
 <div class="tl">${J.map(([w,t,d],i)=>`<article class="card tli rv"><span class="when">${w}</span><h3>${t}</h3><p class="muted">${d}</p></article>`).join('')}</div>
 ${foot()}</div>`},
 
 blog:()=>`<div class="page">${head('~/blog','Blog')}
-<p class="card pad lead rv">Notes on pipelines, infrastructure code, security and AI-assisted engineering.</p>
+<p class="card pad lead rv">Technical notes on pipelines, infrastructure as code, security and AI-assisted engineering.</p>
 <div class="g" style="gap:14px">${POSTS.map((p,i)=>`<a class="card post rv" style="--d:${i*.06}s" href="#post-${p.slug}"><time>${p.date}<br>${p.mins} MIN READ</time><div><h3>${p.title}</h3><p>${p.excerpt}</p><div class="chips">${p.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div></div>${I('arrow')}</a>`).join('')}</div>
 ${foot()}</div>`,
 
@@ -671,17 +711,17 @@ return `<div class="page"><a class="back" href="#blog">${I('back')}ALL POSTS</a>
 ${foot()}</div>`},
 
 contact:()=>`<div class="page">${head('~/contact',"Let's talk")}
-<section class="card pad sec rv"><p class="lead">Looking for an AWS DevOps engineer for a remote or product-based team? Write to me.</p>
+<section class="card pad sec rv"><p class="lead">Hiring an AWS DevOps engineer for a remote or product-based team? Get in touch.</p>
 <a class="big-mail" href="mailto:${EMAIL}" data-copy="${EMAIL}" title="Click to copy email address">${EMAIL}</a>
 <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn mag" type="button" data-mail>${I('mail')}COMPOSE EMAIL</button></div></section>
 <div class="g g2" style="align-items:start">
 <form class="card rv" id="cform" novalidate><h3 style="font-size:1.2rem">Send a message</h3>
 <div class="f"><label for="cn">Your name</label><input id="cn" autocomplete="name" placeholder="Jane Doe"></div>
 <div class="f"><label for="ce">Your email</label><input id="ce" type="email" autocomplete="email" placeholder="jane@company.com"></div>
-<div class="f"><label for="cm">Message</label><textarea id="cm" placeholder="Tell me about the role or project"></textarea></div>
+<div class="f"><label for="cm">Message</label><textarea id="cm" placeholder="Share a few details about the role or project"></textarea></div>
 <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 <button class="btn" type="submit">${I('arrow','go')}SEND MESSAGE</button>
-<p class="muted" style="font-size:.85rem">Your message goes straight to my inbox. Prefer your own mail app? Use the email address above.</p></form>
+<p class="muted" style="font-size:.85rem">Messages are delivered directly to my inbox. Prefer your own mail client? Use Compose Email above.</p></form>
 <aside class="card info rv" style="--d:.1s"><div>${I('pin')}<p><b>Location</b><span>Chennai, India. Open to relocation.</span></p></div><div>${I('clock')}<p><b>Notice period</b><span>45 days, negotiable.</span></p></div><div>${I('linkedin')}<p><b>LinkedIn</b><a class="muted" href="https://www.linkedin.com/in/pravin-velusamy" target="_blank" rel="noopener" style="text-decoration:underline">linkedin.com/in/pravin-velusamy</a></p></div><div>${I('github')}<p><b>GitHub</b><a class="muted" href="https://github.com/Pravin-19" target="_blank" rel="noopener" style="text-decoration:underline">github.com/Pravin-19</a></p></div></aside></div>
 ${foot()}</div>`
 };
@@ -701,14 +741,34 @@ function swap(h){
   const pg=$('.page',main);pg&&pg.classList.add('page-in');
   mount();
 }
-const W=$$('.wipe i');
+/* DevOps infinity loop: a glowing comet traces the plan > code > build > test > release > deploy > operate > monitor cycle */
+const LF=$('#loopfx'),LPATH=$('#lpath'),LSP=$('#lsp'),LPS=$$('#lpl .lp'),LC=$$('#lpc span'),LD=$('#lpd');
+const SPK=[];let LTOT=0,lraf=0,lt0=0;const LAP=1000;
+for(let i=0;i<18;i++){const c=document.createElementNS('http://www.w3.org/2000/svg','polygon');c.setAttribute('points','0,-3.6 3.4,2.8 -3.4,2.8');c.style.fill=i%2?'var(--peach)':'var(--accent)';c.style.opacity=0;LSP.appendChild(c);SPK.push({c,l:0,x:0,y:0,vx:0,vy:0,r:0,vr:0,k:.8+Math.random()*.9})}
+function loopFrame(t){
+  if(!lt0)lt0=t;
+  const k=((t-lt0)/LAP)%1,h=k*LTOT;
+  LPS.forEach(p=>{const L=(+p.dataset.l)/100*LTOT;p.style.strokeDasharray=L+' '+(LTOT-L);p.style.strokeDashoffset=L-h});
+  const i=Math.floor(k*LC.length);LC.forEach((c,j)=>c.classList.toggle('on',j===i));
+  const pt=LPATH.getPointAtLength(h),s=SPK.find(q=>q.l<=0);
+  if(s&&Math.random()<.65){s.l=1;s.x=pt.x+(Math.random()-.5)*5;s.y=pt.y+(Math.random()-.5)*5;s.vx=(Math.random()-.5)*1.1;s.vy=(Math.random()-.5)*1.1-.15;s.r=Math.random()*360;s.vr=(Math.random()-.5)*10}
+  SPK.forEach(q=>{if(q.l>0){q.l-=.028;q.x+=q.vx;q.y+=q.vy;q.r+=q.vr;q.c.setAttribute('transform','translate('+q.x.toFixed(1)+' '+q.y.toFixed(1)+') rotate('+q.r.toFixed(0)+') scale('+q.k.toFixed(2)+')');q.c.style.opacity=Math.max(0,q.l).toFixed(2)}else q.c.style.opacity=0});
+  lraf=requestAnimationFrame(loopFrame);
+}
+function loopStart(label){
+  if(!LTOT)LTOT=LPATH.getTotalLength();
+  LD.textContent='$ cd ~/'+label;lt0=0;LF.classList.add('on');
+  cancelAnimationFrame(lraf);lraf=requestAnimationFrame(loopFrame);
+}
 function nav(first){
   const h=location.hash.replace('#','')||'about';
   if(first||reduce){swap(h);return}
   if(busy||h===shown)return;busy=true;
-  W.forEach(w=>w.dataset.s='cover');
-  setTimeout(()=>{swap(h);W.forEach(w=>w.dataset.s='exit');
-    setTimeout(()=>{W.forEach(w=>w.dataset.s='idle');busy=false;if((location.hash.replace('#','')||'about')!==shown)nav()},700)},620);
+  const lab=h.startsWith('work-')?'portfolio':h.startsWith('post-')?'blog':h;
+  loopStart(lab);
+  setTimeout(()=>swap(h),950);
+  setTimeout(()=>LF.classList.remove('on'),1180);
+  setTimeout(()=>{cancelAnimationFrame(lraf);busy=false;if((location.hash.replace('#','')||'about')!==shown)nav()},1560);
 }
 addEventListener('hashchange',()=>nav());
 
@@ -749,7 +809,7 @@ document.addEventListener('click',e=>{
 /* ---------- mail chooser (Gmail / Outlook / Yahoo / default app) ---------- */
 const FORM_ENDPOINT='https://script.google.com/macros/s/AKfycbxXSd0Pfpxfz2WZjZ6dkx6JQ0Eh3FyDJQJllveiI_kNQcrkrL7JTilR_JXeYJ5fIUvSVg/exec'; /* paste your Google Apps Script Web App URL here (see FORM_SETUP.md) */
 const DEF_SUBJECT='Professional Inquiry - Pravin V';
-const DEF_BODY='Hi Pravin,\n\nI came across your portfolio and your profile looks like a great fit for an opportunity we have. I would love to connect and discuss it with you.\n\nCompany / Role:\nBest time to talk:\n\nRegards,\n';
+const DEF_BODY='Dear Pravin,\n\nI came across your portfolio and believe your profile aligns well with an opportunity at our organisation. I would welcome a conversation to discuss it further.\n\nCompany / Role:\nPreferred time to connect:\n\nRegards,\n';
 function mailLinks(o){
   const s=encodeURIComponent(o.subject||DEF_SUBJECT),b=encodeURIComponent(o.body||DEF_BODY),t=encodeURIComponent(EMAIL);
   return [
@@ -782,9 +842,9 @@ document.addEventListener('submit',async e=>{
   if(e.target.id!=='cform')return;e.preventDefault();
   const f=e.target,n=$('#cn').value.trim(),em=$('#ce').value.trim(),m=$('#cm').value.trim();
   if(f.elements.website&&f.elements.website.value)return;
-  if(!n){toast('Please add your name');$('#cn').focus();return}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){toast('Please add a valid email so I can reply');$('#ce').focus();return}
-  if(!m){toast('Add a short message first');$('#cm').focus();return}
+  if(!n){toast('Please enter your name');$('#cn').focus();return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)){toast('Please enter a valid email address');$('#ce').focus();return}
+  if(!m){toast('Please enter a message');$('#cm').focus();return}
   const fallback=()=>openMail({subject:DEF_SUBJECT,body:m+'\n\n— '+n+'\n'+em});
   if(!FORM_ENDPOINT){fallback();return}
   const orig=f.innerHTML,btn=f.querySelector('button[type=submit]');btn.disabled=true;const lbl=btn.innerHTML;btn.innerHTML='SENDING…';
@@ -794,7 +854,7 @@ document.addEventListener('submit',async e=>{
     const r=f.getBoundingClientRect();burst(r.left+r.width/2,r.top+70);
     setTimeout(()=>{const x=f.querySelector('.sent');if(x)x.classList.add('out')},4550);
     setTimeout(()=>{f.innerHTML=orig},5000);
-  }catch(err){btn.disabled=false;btn.innerHTML=lbl;toast('Could not send right now. Choose a mail app instead.');fallback()}
+  }catch(err){btn.disabled=false;btn.innerHTML=lbl;toast('Your message could not be sent. Please choose a mail app instead.');fallback()}
 });
 
 /* toast */
